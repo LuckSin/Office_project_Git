@@ -23,7 +23,9 @@ def get_department(id):
     allowed_department_ids = g.authority.allowed_objects('department', 'read').ids
 
     if 'read' in g.authority.allowed_operations('department'):
-        department = list(SESSION.execute(sa.select([models.Department]).where(models.Department.id == id)))
+        department = list(SESSION.execute(sa.select([models.Department]).where(sa.and_(models.Department.id == id),
+                                                                               models.Department.id.in_
+                                                                               (allowed_department_ids))))
         department_dict = {'Office_id': department[0][0].Office_id, 'Name': department[0][0].Name}
         return department_dict
 
