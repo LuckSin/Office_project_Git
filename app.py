@@ -23,23 +23,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
-@app.before_request
-def setup_context():
-    if request.url.replace(f'{request.root_url}', '/') != '/api/v1/login':
-        token_header = auth.get_token_auth_header()
-        session = config.SESSION
-        data = auth.decode_token(token_header, config.jwt_secret_key)
-        user = session.query(Employee).filter_by(Login=data['Sub']).first()
-        if not user:
-            raise auth.AuthenticationError(
-                error_code="invalid-credentials",
-                message="Invalid Credentials!",
-                status_code=401,
-            )
-        g.user = user
-        g.authority = Authority(user)
-
-
 def configure_routes(app):
     @app.before_request
     def setup_context():
@@ -181,4 +164,4 @@ def configure_routes(app):
 
 if __name__ == '__main__':
     configure_routes(app)
-    app.run(debug=True)
+    app.run(debug=config.debug_mode)

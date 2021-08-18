@@ -4,11 +4,10 @@ from typing import *
 
 
 class AccessError(Exception):
-    def __init__(
-            self,
-            massage: str = 'access denied'
-    ):
-        super().__init__(massage)
+    message = 'access denied'
+
+    def __init__(self):
+        super().__init__(self.message)
 
 
 @dataclass

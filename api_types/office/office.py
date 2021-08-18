@@ -1,29 +1,32 @@
 import sqlalchemy as sa
 from config import SESSION
 from flask import g
+from permissions.base import AccessError
 
 import models
 
 
 def get_office_list():
     allowed_office_ids = g.authority.allowed_objects('office', 'read').ids
-    filters = []
-    filters.append(models.Office.id.in_(allowed_office_ids))
+    filters = [models.Office.id.in_(allowed_office_ids), ]
     offices = list(SESSION.execute(sa.select([models.Office]).where(sa.and_(*filters))))
     offices_lists = []
-    if 'read' in g.authority.allowed_operations('office'):
-        for office in offices:
-            office_dict = {'id': office[0].id, 'City': office[0].City}
-            offices_lists.append(office_dict)
-    return offices_lists
+    try:
+        g.authority.assert_operation_allowed("office", "read")
+    except AccessError:
+        return {'Error': AccessError.message}
+    for office in offices:
+        office_dict = {'id': office[0].id, 'City': office[0].City}
+        offices_lists.append(office_dict)
+        return offices_lists
 
 
 def get_office(id):
     allowed_office_ids = g.authority.allowed_objects('office', 'read').ids
-    filters = [models.Office.id.in_(allowed_office_ids), ]
 
     if 'read' in g.authority.allowed_operations('office'):
-        office = list(SESSION.execute(sa.select([models.Office]).where(models.Office.id == id)))
+        office = list(SESSION.execute(sa.select([models.Office]).where(sa.and_(models.Office.id == id),
+                                                                       models.Office.id.in_(allowed_office_ids))))
         office_dict = {'id': office[0][0].id, 'City': office[0][0].City}
         return office_dict
 

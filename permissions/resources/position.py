@@ -2,6 +2,7 @@ from typing import FrozenSet
 
 import sqlalchemy as sa
 import config
+from config import POSITIONS
 import models as mod
 from ..base import AllowedSet
 from .meta import register_authority_class, ResourceAuthority
@@ -18,17 +19,18 @@ class PositionAuthority(ResourceAuthority):
         self.check_resource(resource_type)
         operations = set()
 
-        if self.employee.Position_id == 1:
+        if self.employee.Position_id == POSITIONS['admin']:
             operations.add('read')
             operations.add('update')
             operations.add('delete')
             operations.add('create')
-        if self.employee.Position_id == 3:
+        if self.employee.Position_id == POSITIONS['head_of_company']:
             operations.add('read')
             operations.add('update')
             operations.add('delete')
             operations.add('create')
-        if self.employee.Position_id == 4:
+
+        if self.employee.Position_id == POSITIONS['head_of_department']:
             operations.add('read')
             operations.add('update')
             operations.add('delete')
