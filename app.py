@@ -59,7 +59,7 @@ def configure_routes(app):
     def create_office_id():
         data = request.json
         insert_office(data)
-        return jsonify({'created office in': f'{data.get("City")}'})
+        return jsonify({'created office in': data.get('City')},  insert_office(data))
 
     @app.route('/api/v1/office/<int:id>/update', methods=['PUT'])
     def update_data_office(id):
@@ -70,7 +70,7 @@ def configure_routes(app):
     @app.route('/api/v1/office/<id>/delete', methods=['DELETE'])
     def delete_data_office(id):
         delete_office(id)
-        return jsonify({"message": "office deleted"})
+        return jsonify({'delete office': delete_office(id)})
 
     @app.route('/api/v1/departments', methods=['GET'])
     def get_all_department():
