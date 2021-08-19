@@ -73,6 +73,7 @@ def update_employee(data, employee_id):
         'Login': employee.Login,
         'Password': employee.Password
     }
+
     try:
         g.authority.assert_operation_allowed('employee', 'update') and employee_id in allowed_employee_ids
     except AccessError:

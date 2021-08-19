@@ -89,7 +89,7 @@ def test_get_list_positions_as_user(client):
                                    headers=dict(Authorization='Bearer '
                                                               + json.loads(response_login_user.data)['token']))
     assert response_position.status_code == 200
-    assert response_position.get_json()['Position'] == []
+    assert response_position.get_json()['Position'] == {'Error': 'access denied'}
 
 
 def test_insert_position_as_admin(client):

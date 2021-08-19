@@ -65,7 +65,7 @@ def configure_routes(app):
     def update_data_office(id):
         data = request.json
         update_office(data, id)
-        return jsonify(get_office(id))
+        return jsonify('update office', update_office(data, id))
 
     @app.route('/api/v1/office/<id>/delete', methods=['DELETE'])
     def delete_data_office(id):
@@ -86,7 +86,7 @@ def configure_routes(app):
     def create_department():
         data = request.json
         inserted_id = insert_department(data)
-        return jsonify(get_department(inserted_id))
+        return jsonify('created department', inserted_id)
 
     @app.route('/api/v1/department/<id>/update', methods=['PUT'])
     def update_data_department(id):
@@ -113,13 +113,13 @@ def configure_routes(app):
     def create_employee():
         data = request.json
         inserted_id = insert_employee(data)
-        return jsonify(get_employee(inserted_id))
+        return jsonify('created employee', inserted_id)
 
     @app.route('/api/v1/employee/<id>/update', methods=['PUT'])
     def update_data_employee(id):
         data = request.json
         update_employee(data, id)
-        return jsonify(get_employee(id))
+        return jsonify('update employee', update_employee(data, id))
 
     @app.route('/api/v1/employee/<id>/delete', methods=['DELETE'])
     def delete_data_employee(id):
@@ -140,13 +140,13 @@ def configure_routes(app):
     def create_position():
         data = request.json
         inserted_id = insert_position(data)
-        return jsonify(get_position(inserted_id))
+        return jsonify('created position', inserted_id)
 
     @app.route('/api/v1/position/<id>/update', methods=['PUT'])
     def update_data_position(id):
         data = request.json
         update_position(data, id)
-        return jsonify(get_position(id))
+        return jsonify('update position', update_position(data, id))
 
     @app.route('/api/v1/position/<id>/delete', methods=['DELETE'])
     def delete_data_position(id):

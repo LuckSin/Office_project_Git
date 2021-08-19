@@ -89,7 +89,7 @@ def test_get_list_departments_as_user(client):
                                      headers=dict(Authorization='Bearer '
                                                                 + json.loads(response_login_user.data)['token']))
     assert response_department.status_code == 200
-    assert response_department.get_json()['Department'] == []
+    assert response_department.get_json()['Department'] == {'Error': 'access denied'}
 
 
 def test_insert_department_as_admin(client):
