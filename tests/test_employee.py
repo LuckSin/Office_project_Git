@@ -164,12 +164,12 @@ def test_insert_employee_as_user(client):
 def test_update_employee_as_admin(client):
     payload = login_as_admin()
     response_login = client.post('/api/v1/login', headers={'Content-Type': 'application/json'}, data=payload)
-    response_update = client.put('/api/v1/employee/4/update', data=json.dumps(dict(Department_id='7',
-                                                                                   Full_name='test_test',
-                                                                                   Login='test_test',
-                                                                                   Password='123456789',
-                                                                                   Position_id='5',
-                                                                                   Salary='123')),
+    response_update = client.put('/api/v1/employee/30/update', data=json.dumps(dict(Department_id='7',
+                                                                                    Full_name='test_test',
+                                                                                    Login='test_test',
+                                                                                    Password='123456789',
+                                                                                    Position_id='5',
+                                                                                    Salary='123')),
                                  content_type='application/json',
                                  headers=dict(Authorization='Bearer ' + json.loads(response_login.data)['token']))
     assert response_update.status_code == 200
@@ -179,12 +179,12 @@ def test_update_employee_as_head_of_company(client):
     payload = login_as_head_of_company()
     response_login_head_of_company = client.post('/api/v1/login',
                                                  headers={'Content-Type': 'application/json'}, data=payload)
-    response_update = client.put('/api/v1/employee/4/update', data=json.dumps(dict(Department_id='7',
-                                                                                   Full_name='test_test',
-                                                                                   Login='test_test',
-                                                                                   Password='123456789',
-                                                                                   Position_id='5',
-                                                                                   Salary='123')),
+    response_update = client.put('/api/v1/employee/30/update', data=json.dumps(dict(Department_id='7',
+                                                                                    Full_name='test_test',
+                                                                                    Login='test_test',
+                                                                                    Password='123456789',
+                                                                                    Position_id='5',
+                                                                                    Salary='123')),
                                  content_type='application/json',
                                  headers=dict(Authorization='Bearer '
                                                             + json.loads(response_login_head_of_company.data)['token']))
@@ -195,12 +195,12 @@ def test_update_employee_as_head_of_employee(client):
     payload = login_as_head_of_department()
     response_login_head_of_employee = client.post('/api/v1/login',
                                                   headers={'Content-Type': 'application/json'}, data=payload)
-    response_update = client.put('/api/v1/employee/4/update', data=json.dumps(dict(Department_id='7',
-                                                                                   Full_name='test_test',
-                                                                                   Login='test_test',
-                                                                                   Password='123456789',
-                                                                                   Position_id='5',
-                                                                                   Salary='123')),
+    response_update = client.put('/api/v1/employee/30/update', data=json.dumps(dict(Department_id='7',
+                                                                                    Full_name='test_test',
+                                                                                    Login='test_test',
+                                                                                    Password='123456789',
+                                                                                    Position_id='5',
+                                                                                    Salary='123')),
                                  content_type='application/json',
                                  headers=dict(Authorization='Bearer '
                                                             + json.loads(response_login_head_of_employee.data)
@@ -212,15 +212,16 @@ def test_update_employee_as_head_of_employee(client):
 def test_update_employee_as_user(client):
     payload = login_as_user()
     response_login_user = client.post('/api/v1/login', headers={'Content-Type': 'application/json'}, data=payload)
-    response_update = client.put('/api/v1/employee/4/update', data=json.dumps(dict(Department_id='7',
-                                                                                   Full_name='test_test',
-                                                                                   Login='test_test',
-                                                                                   Password='123456789',
-                                                                                   Position_id='5',
-                                                                                   Salary='123')),
+    response_update = client.put('/api/v1/employee/30/update', data=json.dumps(dict(Department_id='7',
+                                                                                    Full_name='test_test',
+                                                                                    Login='test_test',
+                                                                                    Password='123456789',
+                                                                                    Position_id='5',
+                                                                                    Salary='123')),
                                  content_type='application/json',
                                  headers=dict(Authorization='Bearer '
                                                             + json.loads(response_login_user.data)['token']))
+
     assert response_update.status_code == 200
 
 

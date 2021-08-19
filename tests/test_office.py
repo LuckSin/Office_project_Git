@@ -90,7 +90,7 @@ def test_get_list_offices_as_user(client):
                                  headers=dict(Authorization='Bearer '
                                                             + json.loads(response_login_user.data)['token']))
     assert response_office.status_code == 200
-    assert response_office.get_json()['Offices'] == []
+    assert response_office.get_json()['Offices'] == {'Error': 'access denied'}
 
 
 def test_insert_office_as_admin(client):
@@ -144,7 +144,7 @@ def test_insert_office_as_user(client):
 def test_update_office_as_admin(client):
     payload = login_as_admin()
     response_login = client.post('/api/v1/login', headers={'Content-Type': 'application/json'}, data=payload)
-    response_update = client.put('/api/v1/office/13/update', data=json.dumps(dict(City='Test_update')),
+    response_update = client.put('/api/v1/office/18/update', data=json.dumps(dict(City='Test_update')),
                                  content_type='application/json',
                                  headers=dict(Authorization='Bearer ' + json.loads(response_login.data)['token']))
     assert response_update.status_code == 200
