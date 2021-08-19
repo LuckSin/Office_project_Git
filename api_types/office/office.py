@@ -1,8 +1,8 @@
 import sqlalchemy as sa
 from config import SESSION
 from flask import g
-from permissions.base import AccessError
 
+from permissions.base import AccessError
 import models
 
 
